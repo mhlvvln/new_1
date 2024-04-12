@@ -76,7 +76,7 @@ async def registration_confirm(db: AsyncSession, data=RegistrationConfirm):
         }
         access_token = await create_jwt_token(data)
         await db.commit()
-        return SuccessResponse(data={"access_token": access_token})
+        return SuccessResponse(data={"access_token": access_token, "data": data})
     else:
         raise HTTPException(status_code=401, detail="invalid code")
 
@@ -105,7 +105,7 @@ async def auth_check_code(db: AsyncSession, data: AuthCheck):
         }
         access_token = await create_jwt_token(data)
         await db.commit()
-        return SuccessResponse(data={"access_token": access_token})
+        return SuccessResponse(data={"access_token": access_token, "data": data})
     else:
         raise HTTPException(401, "invalid code")
 
